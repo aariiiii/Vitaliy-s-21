@@ -70,76 +70,61 @@
   <!-- “Candles out!” button -->
   <button id="doneBtn" class="fab" type="button">Candles out!</button>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const intro   = document.getElementById('intro');
-    const after   = document.getElementById('after');
-    const start   = document.getElementById('startBtn');
-    const doneBtn = document.getElementById('doneBtn');
-    const replay  = document.getElementById('replayBtn');
-    const iframe  = document.getElementById('cakeIframe');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const intro   = document.getElementById('intro');
+      const after   = document.getElementById('after');
+      const start   = document.getElementById('startBtn');
+      const doneBtn = document.getElementById('doneBtn');
+      const replay  = document.getElementById('replayBtn');
+      const iframe  = document.getElementById('cakeIframe');
 
-    // MUSIC — update with your real MP3 URL once uploaded
-const audio = new Audio("https://aariiiii.github.io/Vitaliy-s-21/birthday_music.mp3");
-    audio.preload = "auto";
-const blower = new Audio("https://aariiiii.github.io/Vitaliy-s-21/tweet.mp3");
-blower.volume = 1.0; // loud and funny
+      // MUSIC
+      const audio = new Audio("https://aariiiii.github.io/Vitaliy-s-21/birthday_music.mp3");
+      audio.preload = "auto";
 
+      // PARTY BLOWER
+      const blower = new Audio("https://aariiiii.github.io/Vitaliy-s-21/tweet.mp3");
+      blower.volume = 1.0;
 
-    start.addEventListener('click', function (e) {
-      e.preventDefault();
-      intro.style.display = 'none';
-      doneBtn.style.display = 'inline-block';
+      // START BUTTON
+      start.addEventListener('click', function (e) {
+        e.preventDefault();
+        intro.style.display = 'none';
+        doneBtn.style.display = 'inline-block';
 
-      // Start music here (user gesture → allowed)
-      audio.volume = 0.6;
-      audio.play().catch(err => console.log("Audio blocked:", err));
+        audio.volume = 0.6;
+        audio.play().catch(() => {});
 
-      // Focus iframe
-      iframe.contentWindow && iframe.contentWindow.focus();
-    });
-
-    doneBtn.addEventListener('click', function () {
-
-  // PLAY PARTY-BLOWER SOUND 🎉
-  blower.currentTime = 0;
-  blower.play().catch(() => {});
-
-  // CONFETTI 🎉
-  confetti({
-    particleCount: 180,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
-
-  after.style.display = 'flex';
-  doneBtn.style.display = 'none';
-});
-
-      // CONFETTI EXPLOSION 🎉
-      confetti({
-        particleCount: 180,
-        spread: 70,
-        origin: { y: 0.6 }
+        iframe.contentWindow && iframe.contentWindow.focus();
       });
 
-      after.style.display = 'flex';
-      doneBtn.style.display = 'none';
-    });
+      // CANDLES OUT BUTTON
+      doneBtn.addEventListener('click', function () {
+        blower.currentTime = 0;
+        blower.play().catch(() => {});
 
-    replay.addEventListener('click', function () {
-      after.style.display = 'none';
-      doneBtn.style.display = 'inline-block';
+        confetti({
+          particleCount: 180,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
 
-      // Optional reset:
-      // iframe.src = iframe.src;
-    });
-  });
-</script>
+        after.style.display = 'flex';
+        doneBtn.style.display = 'none';
+      });
+
+      // REPLAY
+      replay.addEventListener('click', function () {
+        after.style.display = 'none';
+        doneBtn.style.display = 'inline-block';
+      });
 
     });
   </script>
+
 </body>
 </html>
