@@ -84,6 +84,9 @@
     // MUSIC — update with your real MP3 URL once uploaded
 const audio = new Audio("https://aariiiii.github.io/Vitaliy-s-21/birthday_music.mp3");
     audio.preload = "auto";
+const blower = new Audio("https://aariiiii.github.io/Vitaliy-s-21/tweet.mp3");
+blower.volume = 1.0; // loud and funny
+
 
     start.addEventListener('click', function (e) {
       e.preventDefault();
@@ -99,6 +102,22 @@ const audio = new Audio("https://aariiiii.github.io/Vitaliy-s-21/birthday_music.
     });
 
     doneBtn.addEventListener('click', function () {
+
+  // PLAY PARTY-BLOWER SOUND 🎉
+  blower.currentTime = 0;
+  blower.play().catch(() => {});
+
+  // CONFETTI 🎉
+  confetti({
+    particleCount: 180,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+
+  after.style.display = 'flex';
+  doneBtn.style.display = 'none';
+});
+
       // CONFETTI EXPLOSION 🎉
       confetti({
         particleCount: 180,
