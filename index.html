@@ -12,55 +12,93 @@
   <meta name="theme-color" content="#ffd166" />
 
   <style>
-    html,body{
-      margin:0;height:100%;
-      font-family:system-ui,Segoe UI,Arial;
-      background:#000;
-    }
+    html,body{margin:0;height:100%;font-family:system-ui,Segoe UI,Arial;background:#000}
     iframe{width:100%;height:100%;border:0}
-
-    /* overlays */
     .overlay{
-      position:fixed;inset:0;
-      background:rgba(0,0,0,.75);
+      position:fixed;inset:0;background:rgba(0,0,0,.75);
       display:flex;align-items:center;justify-content:center;
-      color:#fff;text-align:center;padding:24px;z-index:99;
+      color:#fff;text-align:center;padding:24px;z-index:99
     }
     .card{
-      max-width:700px;
-      background:rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.2);
-      backdrop-filter:blur(6px);
-      border-radius:18px;
-      padding:28px;
+      max-width:700px;background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(6px);
+      border-radius:18px;padding:28px
     }
     .btn{
-      margin-top:20px;
-      padding:12px 20px;
-      font-weight:600;
-      border:none;
-      border-radius:12px;
-      cursor:pointer;
-      background:#ffd166;
-      color:#000;
+      margin-top:20px;padding:12px 20px;font-weight:600;border:none;
+      border-radius:12px;cursor:pointer;background:#ffd166;color:#000
     }
     .fab{
-      position:fixed;right:16px;bottom:16px;
-      padding:12px 20px;border-radius:999px;
-      background:#ffd166;
-      color:#000;font-weight:600;border:none;
-      cursor:pointer;z-index:90;display:none;
+      position:fixed;right:16px;bottom:16px;padding:12px 20px;border-radius:999px;
+      background:#ffd166;color:#000;font-weight:600;border:none;cursor:pointer;
+      z-index:90;display:none
     }
   </style>
 </head>
-
 <body>
 
-  <!-- PRE-BLOW MESSAGE -->
+  <!-- PRE-BLOW -->
   <div id="intro" class="overlay">
     <div class="card">
       <p style="font-size:20px;line-height:1.4;margin:0;">
         A virtual cake since we´re 7,500 miles away.<br>
         Blow your candles)
       </p>
-      <button class="btn" onclick="startCake()">Star
+      <button id="startBtn" class="btn" type="button">Start</button>
+    </div>
+  </div>
+
+  <!-- POST-BLOW -->
+  <div id="after" class="overlay" style="display:none">
+    <div class="card">
+      <p style="font-size:20px;line-height:1.4;margin:0;">
+        Felices 21 vueltas al sol mor)<br><br>
+        May this new step be your chance to achieve all the changes you´ve wished for
+        and bring u closer to everything you´ve been working for.<br><br>
+        – Gatita
+      </p>
+      <button id="replayBtn" class="btn" type="button">Replay</button>
+    </div>
+  </div>
+
+  <!-- CAKE -->
+  <iframe
+    id="cakeIframe"
+    src="https://sherryuser.github.io/cake-blow/"
+    allow="microphone; autoplay; fullscreen"></iframe>
+
+  <!-- “Candles out!” button -->
+  <button id="doneBtn" class="fab" type="button">Candles out!</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const intro   = document.getElementById('intro');
+      const after   = document.getElementById('after');
+      const start   = document.getElementById('startBtn');
+      const doneBtn = document.getElementById('doneBtn');
+      const replay  = document.getElementById('replayBtn');
+      const iframe  = document.getElementById('cakeIframe');
+
+      start.addEventListener('click', function (e) {
+        e.preventDefault();
+        intro.style.display = 'none';
+        doneBtn.style.display = 'inline-block';
+        // focus iframe (helps some browsers treat as user gesture)
+        iframe.contentWindow && iframe.contentWindow.focus();
+      });
+
+      doneBtn.addEventListener('click', function () {
+        after.style.display = 'flex';
+        doneBtn.style.display = 'none';
+      });
+
+      replay.addEventListener('click', function () {
+        after.style.display = 'none';
+        doneBtn.style.display = 'inline-block';
+        // optional reset:
+        // iframe.src = iframe.src;
+      });
+    });
+  </script>
+</body>
+</html>
